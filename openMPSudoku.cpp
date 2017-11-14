@@ -1,8 +1,14 @@
 #include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
 #include "SudokuGrid.h"
+
+using namespace std;
 
 SudokuGrid::SudokuGrid() {
 	//set board to all zeroes. This causes the print function below to print out '.'
+	//OR swap to read in files to grid directly for testing
 	for (int y=0; y<9; y++) {
 		for (int x=0; x<9; x++) {
 			board[x][y] = 0;
@@ -36,17 +42,144 @@ void SudokuGrid::print() {
 
 }
 
-
+void SudokuGrid::writeCellValue(int x, int y, int value) {
+  board[x][y] = value;
+}
 
 int main (int argc, char * const argv[]) {
 	SudokuGrid puzzle;
+
+	int arraysize = 80;
+	char myArray[arraysize];
+	char current_char;
+	int num_characters = 0;
+	int i = 0;
+	int value;
+
+//	ifstream myfile ("data/cleanedUpFiles/xab");
+//	if (myfile.is_open())
+//		{
+//		  while ( !myfile.eof())
+//		  {
+		  		//this part seems to save the contents of the input file to the array correctly 
+		        //myfile >> myArray[i];
+		        //i++;
+		        //num_characters ++;
+
+		        //TODO this section does not populate the grid correctly
+//		        for (int y=0; y<9; y++) {
+//					for (int x=0; x<9; x++) {
+//						//value = myArray[i] - '0';
+//						//cout << "this is myArray" << endl;
+//						//cout << myArray[i];
+//						//puzzle.writeCellValue(x,y,value);
+//		  				}
+//		  		}
+//		  	}      
+//
+//		for (int i = 0; i <= num_characters; i++)
+//			{
+//				//cout << myArray[i];
+//				//std::cout << "break" << std::endl;
+//				} 
+//			}
+//
+	//myfile.open("data/p096_sudoku.txt");
+	//char ch;
+	//fstream fin("data/cleanedUpFiles/xaa", fstream::in);
+	//while (fin >> noskipws >> ch) {
+	//    cout << ch; // Or whatever I need this to do
+	// 	puzzle.writeCellValue(0,0,ch); }
 
 	// code to set values on grid to the test boards starting values. Not implemented fully.
 	//example below sets value 5 to the cell with coordinates (0,0)
 	//this requires the initialized default for SudokuGrid puzzle to be all zeroes at every location
 	//puzzle.writeCellValue(0,0,5);
+	puzzle.writeCellValue(0,0,0);
+	puzzle.writeCellValue(1,0,0);
+	puzzle.writeCellValue(2,0,3);
+	puzzle.writeCellValue(3,0,0);
+	puzzle.writeCellValue(4,0,2);
+	puzzle.writeCellValue(5,0,0);
+	puzzle.writeCellValue(6,0,6);
+	puzzle.writeCellValue(7,0,0);
+	puzzle.writeCellValue(8,0,0);
+	puzzle.writeCellValue(0,1,9);
+	puzzle.writeCellValue(1,1,0);
+	puzzle.writeCellValue(2,1,0);
+	puzzle.writeCellValue(3,1,3);
+	puzzle.writeCellValue(4,1,0);
+	puzzle.writeCellValue(5,1,5);
+	puzzle.writeCellValue(6,1,0);
+	puzzle.writeCellValue(7,1,0);
+	puzzle.writeCellValue(8,1,1);
+	puzzle.writeCellValue(0,2,0);
+	puzzle.writeCellValue(1,2,0);
+	puzzle.writeCellValue(2,2,1);
+	puzzle.writeCellValue(3,2,1);
+	puzzle.writeCellValue(4,2,8);
+	puzzle.writeCellValue(5,2,0);
+	puzzle.writeCellValue(6,2,6);
+	puzzle.writeCellValue(7,2,4);
+	puzzle.writeCellValue(8,2,0);
+	puzzle.writeCellValue(0,3,0);
+	puzzle.writeCellValue(1,3,0);
+	puzzle.writeCellValue(2,3,0);
+	puzzle.writeCellValue(3,3,8);
+	puzzle.writeCellValue(4,3,1);
+	puzzle.writeCellValue(5,3,0);
+	puzzle.writeCellValue(6,3,2);
+	puzzle.writeCellValue(7,3,9);
+	puzzle.writeCellValue(8,3,0);
+	puzzle.writeCellValue(0,4,0);
+	puzzle.writeCellValue(1,4,7);
+	puzzle.writeCellValue(2,4,0);
+	puzzle.writeCellValue(3,4,0);
+	puzzle.writeCellValue(4,4,0);
+	puzzle.writeCellValue(5,4,0);
+	puzzle.writeCellValue(6,4,0);
+	puzzle.writeCellValue(7,4,0);
+	puzzle.writeCellValue(8,4,0);
+	puzzle.writeCellValue(0,5,8);
+	puzzle.writeCellValue(1,5,0);
+	puzzle.writeCellValue(2,5,0);
+	puzzle.writeCellValue(3,5,6);
+	puzzle.writeCellValue(4,5,7);
+	puzzle.writeCellValue(5,5,0);
+	puzzle.writeCellValue(6,5,8);
+	puzzle.writeCellValue(7,5,2);
+	puzzle.writeCellValue(8,5,0);
+	puzzle.writeCellValue(0,6,0);
+	puzzle.writeCellValue(1,6,0);
+	puzzle.writeCellValue(2,6,0);
+	puzzle.writeCellValue(3,6,2);
+	puzzle.writeCellValue(4,6,6);
+	puzzle.writeCellValue(5,6,0);
+	puzzle.writeCellValue(6,6,9);
+	puzzle.writeCellValue(7,6,5);
+	puzzle.writeCellValue(8,6,0);
+	puzzle.writeCellValue(0,7,0);
+	puzzle.writeCellValue(1,7,8);
+	puzzle.writeCellValue(2,7,0);
+	puzzle.writeCellValue(3,7,0);
+	puzzle.writeCellValue(4,7,2);
+	puzzle.writeCellValue(5,7,0);
+	puzzle.writeCellValue(6,7,3);
+	puzzle.writeCellValue(7,7,0);
+	puzzle.writeCellValue(8,7,0);
+	puzzle.writeCellValue(0,8,9);
+	puzzle.writeCellValue(1,8,0);
+	puzzle.writeCellValue(2,8,0);
+	puzzle.writeCellValue(3,8,5);
+	puzzle.writeCellValue(4,8,0);
+	puzzle.writeCellValue(5,8,1);
+	puzzle.writeCellValue(6,8,0);
+	puzzle.writeCellValue(7,8,3);
+	puzzle.writeCellValue(8,8,0);
+	puzzle.writeCellValue(0,0,0);
+
 
 	//print grid, if empty the cells are filled with '.'
 	puzzle.print();
 
-	}
+}
