@@ -20,13 +20,11 @@ class SudokuGrid {
     // Constructor
 	SudokuGrid();
   
-  	// TODO
     // cleanly and nicely print out the sudoku board to the terminal
     void print();
 	
-	// TODO
 	// enterBoardValue
-	//void writeCellValue(int x, int y, int value);
+	void writeCellValue(int x, int y, int value);
   
   	// TODO
     // readCellValue
