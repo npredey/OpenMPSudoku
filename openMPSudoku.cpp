@@ -234,7 +234,7 @@ int main (int argc, char * const argv[]) {
 
 	//print grid, if empty the cells are filled with '.'
 	puzzle.print();
-    std::cout << std::boolalpha << testValidity(2,8) <<endl;
+    std::cout << std::boolalpha << puzzle.testValidity(2,8) <<endl;
     //if else statement calling print if puzzle is solvable and exiting if not
     //puzzle.solve is not written yet TODO
 //    if (puzzle.solve()) {

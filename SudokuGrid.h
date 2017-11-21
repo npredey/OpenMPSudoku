@@ -8,19 +8,24 @@ class SudokuGrid {
   	//TODO boards of various sizes, must change print() as well
 	short int board[9][9];
 
-	//TODO
-	// bruteForce solving attempt
-	bool bruteForceSolve(int x, int y);
+
 	
-	// TODO
-	// tests validity of cell value
-    //returns true if rules are followed, false if any are broken
-	bool testValidity(int x, int y);
+
 
   public:
     // Constructor
 	SudokuGrid();
+
+		// TODO
+	// tests validity of cell value
+    //returns true if rules are followed, false if any are broken
+	bool testValidity(int x, int y);
   
+
+    	//TODO
+	// bruteForce solving attempt
+	bool bruteForceSolve(int x, int y);
+	
     // cleanly and nicely print out the sudoku board to the terminal
     void print();
 	
