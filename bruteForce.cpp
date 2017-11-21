@@ -1,19 +1,13 @@
 include <stdio.h>
-
-//The value for an unassigned cell
-#define UNASSIGNED 0
- 
-// Size of grid -- This will have to change when we consider 16
-#define N 9
  
 // This function finds an entry in grid that is still unassigned
-bool findUnassignedCell(int grid[N][N], int &row, int &col);
+bool findUnassignedCell(int grid[9][9], int &row, int &col);
  
 // Checks whether it will be legal to assign num to the given row,col
-bool isValidMove(int grid[N][N], int row, int col, int num);
+bool isValidMove(int grid[9][9], int row, int col, int num);
  
 //Attempt to solve the sudoku the naive way, using backtracking
-bool bruteForceSolve(int grid[N][N])
+bool bruteForceSolve(int grid[9][9])
 {
     int row, col;
  
@@ -37,32 +31,32 @@ bool bruteForceSolve(int grid[N][N])
     return false; // trigger backtracking
 }
  
-bool findUnassignedCell(int grid[N][N], int &row, int &col)
+bool findUnassignedCell(int grid[9][9], int &row, int &col)
 {
-    for (row = 0; row < N; row++)
-        for (col = 0; col < N; col++)
+    for (row = 0; row < 9; row++)
+        for (col = 0; col < 9; col++)
             if (grid[row][col] == UNASSIGNED)
                 return true;
     return false;
 }
  
-bool checkRow(int grid[N][N], int row, int num)
+bool checkRow(int grid[9][9], int row, int num)
 {
-    for (int col = 0; col < N; col++)
+    for (int col = 0; col < 9; col++)
         if (grid[row][col] == num)
             return true;
     return false;
 }
  
-bool checkColumn(int grid[N][N], int col, int num)
+bool checkColumn(int grid[9][9], int col, int num)
 {
-    for (int row = 0; row < N; row++)
+    for (int row = 0; row < 9; row++)
         if (grid[row][col] == num)
             return true;
     return false;
 }
  
-bool checkBox(int grid[N][N], int boxStartRow, int boxStartCol, int num)
+bool checkBox(int grid[9][9], int boxStartRow, int boxStartCol, int num)
 {
     for (int row = 0; row < 3; row++)
         for (int col = 0; col < 3; col++)
@@ -71,7 +65,7 @@ bool checkBox(int grid[N][N], int boxStartRow, int boxStartCol, int num)
     return false;
 }
  
-bool isValidMove(Sudoku grid[N][N], int row, int col, int num)
+bool isValidMove(Sudoku grid[9][9], int row, int col, int num)
 {
     return !checkColumn(grid, row, num) &&
            !checkRow(grid, col, num) &&
@@ -79,11 +73,11 @@ bool isValidMove(Sudoku grid[N][N], int row, int col, int num)
 }
  
 //Print out the grid.
-void printGrid(int grid[N][N])
+void printGrid(int grid[9][9])
 {
-    for (int row = 0; row < N; row++)
+    for (int row = 0; row < 9; row++)
     {
-       for (int col = 0; col < N; col++)
+       for (int col = 0; col < 9; col++)
              printf("%2d", grid[row][col]);
         printf("\n");
     }
