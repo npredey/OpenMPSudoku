@@ -8,10 +8,6 @@ class SudokuGrid {
   	//TODO boards of various sizes, must change print() as well
 	short int board[9][9];
 
-
-	
-
-
   public:
     // Constructor
 	SudokuGrid();
@@ -20,12 +16,11 @@ class SudokuGrid {
 	// tests validity of cell value
     //returns true if rules are followed, false if any are broken
 	bool testValidity(int x, int y);
-  
-
-    	//TODO
+ 
+    //TODO
 	// bruteForce solving attempt
-	bool bruteForceSolve(int x, int y);
-	
+	//bool bruteForceSolve(SudokuGrid grid);
+
     // cleanly and nicely print out the sudoku board to the terminal
     void print();
 	
@@ -34,11 +29,14 @@ class SudokuGrid {
   
   	// TODO
     // readCellValue
-	//int readCellValue(int x, int y);
+	int readCellValue(int x, int y);
 	
 	// TODO
 	// Returns true if solved state, returns false if unsolvable.
 	//bool solve();
+
+	//Nick's New Code To Merge
+	bool findUnassignedCell(SudokuGrid grid, int x, int y);
 	
 };
 

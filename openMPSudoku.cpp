@@ -99,6 +99,55 @@ bool SudokuGrid::testValidity(int x, int y) {
     return true;
 }
 
+int SudokuGrid::readCellValue(int x_cord, int y_cord) {
+	return board[x_cord][y_cord];
+}
+
+//Nick's Code Merge
+
+bool findUnassignedCell(SudokuGrid grid, int &row, int &col)
+{
+    for (row = 0; row < 9; row++)
+        for (col = 0; col < 9; col++)
+            if (grid.readCellValue(row, col) == 0)
+                return true;
+    return false;
+}
+
+
+bool bruteForceSolve(SudokuGrid grid)
+{
+    int row, col;
+ 
+    // If there is no unassigned location, we are done
+    if (!findUnassignedCell(grid, row, col))
+       return true;
+ 
+    for (int num = 1; num <= 9; num++)
+    {
+    	std::cout << std::boolalpha << grid.testValidity(row,col) <<endl; 
+
+        //if (isValidMove(grid, row, col, num))
+        //TODO NICK does this section make sense? Why is it triggered by being valid if you are going to backtrack later on in this section?
+        if (grid.testValidity(row,col))
+        {
+        	//TODO replace with writeCellValue if needed
+            //board[row][col] = num;
+            grid.writeCellValue(row, col, num);
+
+            //call this recursively TODO May change this for parallelization reasons
+            if (bruteForceSolve(grid))
+                return true;
+            //if this is not a valid move, then re-unassign it. 
+            //TODO NICK does this need to be an else statement?
+            //board[row][col] = 0;
+            grid.writeCellValue(row, col, num);
+        }
+    }
+    return false; // trigger backtracking
+}
+ 
+
 int main (int argc, char * const argv[]) {
 	SudokuGrid puzzle;
 
@@ -215,5 +264,7 @@ int main (int argc, char * const argv[]) {
 //    } else {
 //        std::cout << "Unsolvable Puzzle" << std::endl;
 //    }
+    bruteForceSolve(puzzle);
+    puzzle.print();
     return 0;
 }
