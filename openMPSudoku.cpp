@@ -109,35 +109,7 @@ int main (int argc, char * const argv[]) {
 	int i = 0;
 	int value;
 
-//	ifstream myfile ("data/cleanedUpFiles/xab");
-//	if (myfile.is_open())
-//		{
-//		  while ( !myfile.eof())
-//		  {
-		  		//this part seems to save the contents of the input file to the array correctly 
-		        //myfile >> myArray[i];
-		        //i++;
-		        //num_characters ++;
-
-		        //TODO this section does not populate the grid correctly
-//		        for (int y=0; y<9; y++) {
-//					for (int x=0; x<9; x++) {
-//						//value = myArray[i] - '0';
-//						//cout << "this is myArray" << endl;
-//						//cout << myArray[i];
-//						//puzzle.writeCellValue(x,y,value);
-//		  				}
-//		  		}
-//		  	}      
-//
-//		for (int i = 0; i <= num_characters; i++)
-//			{
-//				//cout << myArray[i];
-//				//std::cout << "break" << std::endl;
-//				} 
-//			}
-//
-	//myfile.open("data/p096_sudoku.txt");
+	//myfile.open("data/cleanedUpFiles/xab");
 	//char ch;
 	//fstream fin("data/cleanedUpFiles/xaa", fstream::in);
 	//while (fin >> noskipws >> ch) {
