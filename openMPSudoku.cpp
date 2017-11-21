@@ -125,15 +125,18 @@ bool bruteForceSolve(SudokuGrid grid)
  
     for (int num = 1; num <= 9; num++)
     {
+    	//testing functionality
+    	std::cout << std::boolalpha << grid.testValidity(row,col) <<endl; 
+    	grid.writeCellValue(row, col, num);
     	std::cout << std::boolalpha << grid.testValidity(row,col) <<endl; 
 
         //if (isValidMove(grid, row, col, num))
         //TODO NICK does this section make sense? Why is it triggered by being valid if you are going to backtrack later on in this section?
-        if (grid.testValidity(row,col))
+        if (grid.testValidity(row,col) == true)
         {
         	//TODO replace with writeCellValue if needed
             //board[row][col] = num;
-            grid.writeCellValue(row, col, num);
+            // moved this line up to above grid.writeCellValue(row, col, num);
 
             //call this recursively TODO May change this for parallelization reasons
             if (bruteForceSolve(grid))
@@ -255,7 +258,7 @@ int main (int argc, char * const argv[]) {
 
 	//print grid, if empty the cells are filled with '.'
 	puzzle.print();
-    std::cout << std::boolalpha << puzzle.testValidity(2,8) <<endl;
+    //std::cout << std::boolalpha << puzzle.testValidity(2,8) <<endl;
     //if else statement calling print if puzzle is solvable and exiting if not
     //puzzle.solve is not written yet TODO
 //    if (puzzle.solve()) {
