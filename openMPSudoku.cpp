@@ -46,11 +46,64 @@ void SudokuGrid::writeCellValue(int x, int y, int value) {
   board[x][y] = value;
 }
 
+bool SudokuGrid::testValidity(int x, int y) {
+    //returns true if all tests pass, otherwise returns false
+
+    int gridLocation = board[x][y];
+    //compare inputted x value for doubles in the y column
+    //compared inpuuted y value for doubles in the x column
+    for (int xValidity=0; xValidity<9; xValidity++) {
+        //keeps breaking on itself, this fixes that
+        if (xValidity == x) {
+            continue;
+        }
+        
+        //actual test for doubles
+        int testValue = board[xValidity][y];
+        if (testValue == gridLocation) {
+            return false;
+        }
+    }
+
+    for (int yValidity=0; yValidity<9; yValidity++) {
+        //keeps breaking on itself, this fixes that
+        if (yValidity == y) {
+            continue;
+        }
+
+        //actual test for doubles
+        int testValue = board[x][yValidity];
+        if (testValue == gridLocation) {
+            return false;    
+        }
+    }
+
+    //test 3x3 box (will not work with larger sizes)
+    int boxX = x/3;
+    int boxY = y/3;
+
+    for (int yValidity =boxY * 3; yValidity < boxY * 3 + 3; yValidity++) {
+    for (int xValidity=boxX * 3; xValidity < boxX * 3 + 3; xValidity++) {
+        //stop from breaking on itself
+        if (xValidity == x && yValidity == y) {
+            continue;
+            }
+        //fail if repeated values
+        int testValue = board[xValidity][yValidity];
+        if (testValue == gridLocation) {
+            return false;
+            }
+    }
+    }
+    //if all tests passed, return true
+    return true;
+}
+
 int main (int argc, char * const argv[]) {
 	SudokuGrid puzzle;
 
 	int arraysize = 80;
-	char myArray[arraysize];
+    char myArray[arraysize];
 	char current_char;
 	int num_characters = 0;
 	int i = 0;
@@ -181,5 +234,14 @@ int main (int argc, char * const argv[]) {
 
 	//print grid, if empty the cells are filled with '.'
 	puzzle.print();
-
+    std::cout << std::boolalpha << testValidity(2,8) <<endl;
+    //if else statement calling print if puzzle is solvable and exiting if not
+    //puzzle.solve is not written yet TODO
+//    if (puzzle.solve()) {
+//        std::cout << "Puzzle Solved Solution Below" << std::endl;
+//        puzzle.print();
+//    } else {
+//        std::cout << "Unsolvable Puzzle" << std::endl;
+//    }
+    return 0;
 }

@@ -14,7 +14,8 @@ class SudokuGrid {
 	
 	// TODO
 	// tests validity of cell value
-	bool verifyValue(int x, int y);
+    //returns true if rules are followed, false if any are broken
+	bool testValidity(int x, int y);
 
   public:
     // Constructor
