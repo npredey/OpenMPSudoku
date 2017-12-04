@@ -6,7 +6,7 @@ class SudokuGrid {
 
   	//grid
   	//TODO boards of various sizes, must change print() as well
-	short int board[9][9];
+	int board[9][9];
 
   public:
     // Constructor
@@ -37,6 +37,8 @@ class SudokuGrid {
 
 	//Nick's New Code To Merge
 	bool findUnassignedCell(SudokuGrid grid, int x, int y);
+    
+    void readArray(SudokuGrid* grid, int[][9]);
 	
 };
 

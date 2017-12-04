@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "SudokuGrid.h"
+#include "my_timer.h"
 
 using namespace std;
 
@@ -16,135 +17,114 @@ SudokuGrid::SudokuGrid() {
 	}
 }
 
+//Reads a two dimensional matrix into the grid
+void SudokuGrid::readArray(SudokuGrid* grid, int b[][9]) {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cout << "Reading value: " << b[i][j] << endl;
+            grid->writeCellValue(i, j, b[i][j]);
+        }
+    }
+}
+
 //TODO fix print for various sizes, right now only works for 9x9 sudoku puzzle
 void SudokuGrid::print() {
 	//for every row
-	for (int y=0; y<9; y++) {
-		if (y%3==0) {
-			std::cout << "-------------------------------" << std::endl;
-		}
-
-	//for every cell in the row
-	for (int x=0; x<9; x++) {
-		if (x%3==0) {
-			std::cout << "|";
-		}	
-	    if (board[x][y] != 0) {
-			std::cout << " " << board[x][y] << " ";
-		} else {
-			std::cout << " . ";
-		}		
-	}	
-	// Draw columns between blocks
-	std::cout << "|" << std::endl;
-	}
-	std::cout << "-------------------------------" << std::endl;
-
-}
-
-void SudokuGrid::writeCellValue(int x, int y, int value) {
-  board[x][y] = value;
-}
-
-bool SudokuGrid::testValidity(int x, int y) {
-    //returns true if all tests pass, otherwise returns false
-
-    int gridLocation = board[x][y];
-    //compare inputted x value for doubles in the y column
-    //compared inpuuted y value for doubles in the x column
-    for (int xValidity=0; xValidity<9; xValidity++) {
-        //keeps breaking on itself, this fixes that
-        if (xValidity == x) {
-            continue;
+    for (int row = 0; row < 9; row++) {
+        if (row % 3 == 0) {
+            std::cout << "-------------------------------" << std::endl;
         }
-        
-        //actual test for doubles
-        int testValue = board[xValidity][y];
-        if (testValue == gridLocation) {
-            return false;
-        }
-    }
-
-    for (int yValidity=0; yValidity<9; yValidity++) {
-        //keeps breaking on itself, this fixes that
-        if (yValidity == y) {
-            continue;
-        }
-
-        //actual test for doubles
-        int testValue = board[x][yValidity];
-        if (testValue == gridLocation) {
-            return false;    
-        }
-    }
-
-    //test 3x3 box (will not work with larger sizes)
-    int boxX = x/3;
-    int boxY = y/3;
-
-    for (int yValidity =boxY * 3; yValidity < boxY * 3 + 3; yValidity++) {
-    for (int xValidity=boxX * 3; xValidity < boxX * 3 + 3; xValidity++) {
-        //stop from breaking on itself
-        if (xValidity == x && yValidity == y) {
-            continue;
+        for (int col = 0; col < 9; col++) {
+            if (col % 3 == 0) {
+                std::cout << "|";
             }
-        //fail if repeated values
-        int testValue = board[xValidity][yValidity];
-        if (testValue == gridLocation) {
-            return false;
+            if (board[row][col] != 0) {
+                std::cout << " " << board[row][col] << " ";
+            } else {
+                std::cout << " . ";
             }
+        }
+        // Draw columns between blocks
+        std::cout << "|" << std::endl;
     }
-    }
-    //if all tests passed, return true
-    return true;
+    std::cout << "-------------------------------" << std::endl;
 }
 
-int SudokuGrid::readCellValue(int x_cord, int y_cord) {
-	return board[x_cord][y_cord];
+void SudokuGrid::writeCellValue(int row, int col, int value) {
+  board[row][col] = value;
+}
+
+int SudokuGrid::readCellValue(int row, int col) {
+	return board[row][col];
 }
 
 //Nick's Code Merge
 
-bool findUnassignedCell(SudokuGrid grid, int &row, int &col)
+bool findUnassignedCell(SudokuGrid* grid, int &row, int &col)
 {
     for (row = 0; row < 9; row++)
         for (col = 0; col < 9; col++)
-            if (grid.readCellValue(row, col) == 0)
+            if (grid->readCellValue(row,col) == 0)
                 return true;
     return false;
 }
 
+bool checkRow(SudokuGrid* grid, int row, int num)
+{
+    for (int col = 0; col < 9; col++)
+        if (grid->readCellValue(row,col) == num)
+            return true;
+    return false;
+}
 
-bool bruteForceSolve(SudokuGrid grid)
+bool checkColumn(SudokuGrid* grid, int col, int num)
+{
+    for (int row = 0; row < 9; row++)
+        if (grid->readCellValue(row,col) == num)
+            return true;
+    return false;
+}
+
+bool checkBox(SudokuGrid* grid, int boxStartRow, int boxStartCol, int num)
+{
+    for (int row = 0; row < 3; row++)
+        for (int col = 0; col < 3; col++)
+            if (grid->readCellValue(row+boxStartRow,col+boxStartCol) == num)
+                return true;
+    return false;
+}
+
+bool isValidMove(SudokuGrid* grid, int row, int col, int num)
+{
+    return !checkRow(grid, row, num) &&
+    !checkColumn(grid, col, num) &&
+    !checkBox(grid, row - row%3 , col - col%3, num);
+}
+
+bool bruteForceSolve(SudokuGrid* grid, int &numAttempts)
 {
     int row, col;
  
     // If there is no unassigned location, we are done
     if (!findUnassignedCell(grid, row, col))
        return true;
- 
+    //this loop are the actual values to consider entering in the grid
     for (int num = 1; num <= 9; num++)
     {
-    	//testing functionality
-    	std::cout << std::boolalpha << grid.testValidity(row,col) <<endl; 
-    	grid.writeCellValue(row, col, num);
-    	std::cout << std::boolalpha << grid.testValidity(row,col) <<endl; 
-
-        //if (isValidMove(grid, row, col, num))
-        //TODO NICK does this section make sense? Why is it triggered by being valid if you are going to backtrack later on in this section?
-        if (grid.testValidity(row,col) == true)
-        {
-        	//TODO replace with writeCellValue if needed
-            //board[row][col] = num;
-            // moved this line up to above grid.writeCellValue(row, col, num);
+        numAttempts++;
+        if (isValidMove(grid, row, col, num)) {
+            
+            //we want to write the cell value here, tentatively, because the move is valid. this is sort of the basis for the backtracking because we are making an educated guess that the value will work, based solely off the fact that it is a valid move. this does not mean it will remain valid, though.
+            
+            grid->writeCellValue(row,col,num);
 
             //call this recursively TODO May change this for parallelization reasons
-            if (bruteForceSolve(grid))
+            if (bruteForceSolve(grid, numAttempts))
                 return true;
-            //if this is not a valid move, then re-unassign it. 
-            //TODO NICK does this need to be an else statement?
-            //board[row][col] = 0;
-            grid.writeCellValue(row, col, num);
+            
+            //we make the recursive call. afterwards, if it doesn't return true, then we know that the tentative assignment above was incorrect. so, we set it back to 0 and move on.
+            grid->writeCellValue(row, col, 0);
+            //grid->print();
         }
     }
     return false; // trigger backtracking
@@ -255,19 +235,31 @@ int main (int argc, char * const argv[]) {
 	puzzle.writeCellValue(8,8,0);
 	puzzle.writeCellValue(0,0,0);
 
-
+    int grid[9][9] = {{3, 0, 6, 5, 0, 8, 4, 0, 0},
+        {5, 2, 0, 0, 0, 0, 0, 0, 0},
+        {0, 8, 7, 0, 0, 0, 0, 3, 1},
+        {0, 0, 3, 0, 1, 0, 0, 8, 0},
+        {9, 0, 0, 8, 6, 3, 0, 0, 5},
+        {0, 5, 0, 0, 9, 0, 6, 0, 0},
+        {1, 3, 0, 0, 0, 0, 2, 5, 0},
+        {0, 0, 0, 0, 0, 0, 0, 7, 4},
+        {0, 0, 5, 2, 0, 6, 3, 0, 0}};
+    
+    int attempts;
+    
+    //puzzle.readArray(&puzzle, grid); read from the grid above, or any other grid we define
 	//print grid, if empty the cells are filled with '.'
 	puzzle.print();
-    //std::cout << std::boolalpha << puzzle.testValidity(2,8) <<endl;
-    //if else statement calling print if puzzle is solvable and exiting if not
-    //puzzle.solve is not written yet TODO
-//    if (puzzle.solve()) {
-//        std::cout << "Puzzle Solved Solution Below" << std::endl;
-//        puzzle.print();
-//    } else {
-//        std::cout << "Unsolvable Puzzle" << std::endl;
-//    }
-    bruteForceSolve(puzzle);
+
+    //TODO time this. getting a linker error when importing the header. should talk to Dr. Stone about this
+    //myTimer_t t0 = getTimeStamp();
+    if (bruteForceSolve(&puzzle, attempts)) {
+        cout << "Solution exists ";
+    } else {
+        cout << "Solution does not exist ";
+    }
+    //myTimer_t t1 = getTimeStamp();
+    cout << "after " << attempts << " attempts and " << /*getElapsedTime(t0,t1)*1000 << " seconds." <<*/ endl;
     puzzle.print();
     return 0;
 }

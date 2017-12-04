@@ -27,12 +27,14 @@ bool bruteForceSolve(int grid[9][9])
             //if this is not a valid move, then re-unassign it.
             grid[row][col] = UNASSIGNED;
         }
+        printGrid(grid);
     }
     return false; // trigger backtracking
 }
  
 bool findUnassignedCell(int grid[9][9], int &row, int &col)
 {
+    printGrid(grid);
     for (row = 0; row < 9; row++)
         for (col = 0; col < 9; col++)
             if (grid[row][col] == UNASSIGNED)
