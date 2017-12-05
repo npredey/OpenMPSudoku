@@ -2,8 +2,11 @@
 #include <iomanip>
 #include <string>
 #include <fstream>
+#include <stdlib.h>
 #include "SudokuGrid.h"
 #include "my_timer.h"
+
+#define toDigit(c) (c-'0') //converts a single char into an int
 
 using namespace std;
 
@@ -27,14 +30,26 @@ void SudokuGrid::readArray(int b[][9]) {
     }
 }
 
-/*void SudokuGrid::readStringToBoard(std::string board) {
-    if (board.length() != 81) {
-        return -1;
+//read a string in the form "390004000..." where every substring of the form [i,i+9) is a row of the grid
+void SudokuGrid::readStringToBoard(std::string boardLine) {
+    if (boardLine.length() != 81) {
+        cout << "Board is not valid." << endl;
+        return;
     }
-    for (int i = 0; i < 81; i+=8) {
-        
+    int boardRowNumber = 0;
+    for (int i = 0; i < 81; i+=9) {
+        std::string boardRowString = boardLine.substr(i,9);
+        for (int j = 0; j < boardRowString.length(); j++) {
+            char element = boardRowString[j];
+            if (element == '.') {
+                board[boardRowNumber][j] = 0;
+            } else {
+                board[boardRowNumber][j] = toDigit(element);
+            }
+        }
+        boardRowNumber++;
     }
-}*/
+}
 
 //TODO fix print for various sizes, right now only works for 9x9 sudoku puzzle
 void SudokuGrid::print() {
@@ -142,102 +157,7 @@ bool bruteForceSolve(SudokuGrid* grid, int &numAttempts)
 
 int main (int argc, char * const argv[]) {
 	SudokuGrid puzzle;
-
-	//myfile.open("data/cleanedUpFiles/xab");
-	//char ch;
-	//fstream fin("data/cleanedUpFiles/xaa", fstream::in);
-	//while (fin >> noskipws >> ch) {
-	//    cout << ch; // Or whatever I need this to do
-	// 	puzzle.writeCellValue(0,0,ch); }
-
-	// code to set values on grid to the test boards starting values. Not implemented fully.
-	//example below sets value 5 to the cell with coordinates (0,0)
-	//this requires the initialized default for SudokuGrid puzzle to be all zeroes at every location
-	//puzzle.writeCellValue(0,0,5);
-	/*puzzle.writeCellValue(0,0,0);
-	puzzle.writeCellValue(1,0,0);
-	puzzle.writeCellValue(2,0,3);
-	puzzle.writeCellValue(3,0,0);
-	puzzle.writeCellValue(4,0,2);
-	puzzle.writeCellValue(5,0,0);
-	puzzle.writeCellValue(6,0,6);
-	puzzle.writeCellValue(7,0,0);
-	puzzle.writeCellValue(8,0,0);
-	puzzle.writeCellValue(0,1,9);
-	puzzle.writeCellValue(1,1,0);
-	puzzle.writeCellValue(2,1,0);
-	puzzle.writeCellValue(3,1,3);
-	puzzle.writeCellValue(4,1,0);
-	puzzle.writeCellValue(5,1,5);
-	puzzle.writeCellValue(6,1,0);
-	puzzle.writeCellValue(7,1,0);
-	puzzle.writeCellValue(8,1,1);
-	puzzle.writeCellValue(0,2,0);
-	puzzle.writeCellValue(1,2,0);
-	puzzle.writeCellValue(2,2,1);
-	puzzle.writeCellValue(3,2,8);
-	puzzle.writeCellValue(4,2,0);
-	puzzle.writeCellValue(5,2,6);
-	puzzle.writeCellValue(6,2,4);
-	puzzle.writeCellValue(7,2,0);
-	puzzle.writeCellValue(8,2,0);
-	puzzle.writeCellValue(0,3,0);
-	puzzle.writeCellValue(1,3,0);
-	puzzle.writeCellValue(2,3,8);
-	puzzle.writeCellValue(3,3,1);
-	puzzle.writeCellValue(4,3,0);
-	puzzle.writeCellValue(5,3,2);
-	puzzle.writeCellValue(6,3,9);
-	puzzle.writeCellValue(7,3,0);
-	puzzle.writeCellValue(8,3,0);
-	puzzle.writeCellValue(0,4,7);
-	puzzle.writeCellValue(1,4,0);
-	puzzle.writeCellValue(2,4,0);
-	puzzle.writeCellValue(3,4,0);
-	puzzle.writeCellValue(4,4,0);
-	puzzle.writeCellValue(5,4,0);
-	puzzle.writeCellValue(6,4,0);
-	puzzle.writeCellValue(7,4,0);
-	puzzle.writeCellValue(8,4,8);
-	puzzle.writeCellValue(0,5,0);
-	puzzle.writeCellValue(1,5,0);
-	puzzle.writeCellValue(2,5,6);
-	puzzle.writeCellValue(3,5,7);
-	puzzle.writeCellValue(4,5,0);
-	puzzle.writeCellValue(5,5,8);
-	puzzle.writeCellValue(6,5,2);
-	puzzle.writeCellValue(7,5,0);
-	puzzle.writeCellValue(8,5,0);
-	puzzle.writeCellValue(0,6,0);
-	puzzle.writeCellValue(1,6,0);
-	puzzle.writeCellValue(2,6,2);
-	puzzle.writeCellValue(3,6,6);
-	puzzle.writeCellValue(4,6,0);
-	puzzle.writeCellValue(5,6,9);
-	puzzle.writeCellValue(6,6,5);
-	puzzle.writeCellValue(7,6,0);
-	puzzle.writeCellValue(8,6,0);
-	puzzle.writeCellValue(0,7,8);
-	puzzle.writeCellValue(1,7,0);
-	puzzle.writeCellValue(2,7,0);
-	puzzle.writeCellValue(3,7,2);
-	puzzle.writeCellValue(4,7,0);
-	puzzle.writeCellValue(5,7,3);
-	puzzle.writeCellValue(6,7,0);
-	puzzle.writeCellValue(7,7,0);
-	puzzle.writeCellValue(8,7,9);
-	puzzle.writeCellValue(0,8,0);
-	puzzle.writeCellValue(1,8,0);
-	puzzle.writeCellValue(2,8,5);
-	puzzle.writeCellValue(3,8,0);
-	puzzle.writeCellValue(4,8,1);
-	puzzle.writeCellValue(5,8,0);
-	puzzle.writeCellValue(6,8,3);
-	puzzle.writeCellValue(7,8,0);
-	puzzle.writeCellValue(8,8,0);
-	puzzle.writeCellValue(0,0,0);*/
-
-    int grid[9][9] = {{3, 0, 6, 5, 0, 8, 4, 0, 0},
+    /*int grid[9][9] = {{3, 0, 6, 5, 0, 8, 4, 0, 0},
         {5, 2, 0, 0, 0, 0, 0, 0, 0},
         {0, 8, 7, 0, 0, 0, 0, 3, 1},
         {0, 0, 3, 0, 1, 0, 0, 8, 0},
@@ -247,12 +167,13 @@ int main (int argc, char * const argv[]) {
         {0, 0, 0, 0, 0, 0, 0, 7, 4},
         {0, 0, 5, 2, 0, 6, 3, 0, 0}};
     
-    int attempts;
-    
-    puzzle.readArray(grid); //read from the grid above, or any other grid we define
+    //puzzle.readArray(grid); //read from the grid above, or any other grid we define
 	//print grid, if empty the cells are filled with '.'
-	puzzle.print();
-
+	//puzzle.print();*/
+    int attempts;
+    std::string example = "85...24..72......9..4....00...1.7..23.5...9...4...........8..7..17..........36.4.";
+    puzzle.readStringToBoard(example);
+    puzzle.print();
     //TODO time this. getting a linker error when importing the header. should talk to Dr. Stone about this
     //myTimer_t t0 = getTimeStamp();
     if (bruteForceSolve(&puzzle, attempts)) {

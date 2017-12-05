@@ -39,6 +39,8 @@ class SudokuGrid {
 	bool findUnassignedCell(SudokuGrid grid, int x, int y);
     
     void readArray(int[][9]);
+    
+    void readStringToBoard(std::string board);
 	
 };
 
