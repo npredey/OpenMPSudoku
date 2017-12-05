@@ -38,7 +38,7 @@ class SudokuGrid {
 	//Nick's New Code To Merge
 	bool findUnassignedCell(SudokuGrid grid, int x, int y);
     
-    void readArray(SudokuGrid* grid, int[][9]);
+    void readArray(int[][9]);
 	
 };
 

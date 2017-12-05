@@ -18,14 +18,23 @@ SudokuGrid::SudokuGrid() {
 }
 
 //Reads a two dimensional matrix into the grid
-void SudokuGrid::readArray(SudokuGrid* grid, int b[][9]) {
+void SudokuGrid::readArray(int b[][9]) {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             cout << "Reading value: " << b[i][j] << endl;
-            grid->writeCellValue(i, j, b[i][j]);
+            board[i][j] = b[i][j];
         }
     }
 }
+
+/*void SudokuGrid::readStringToBoard(std::string board) {
+    if (board.length() != 81) {
+        return -1;
+    }
+    for (int i = 0; i < 81; i+=8) {
+        
+    }
+}*/
 
 //TODO fix print for various sizes, right now only works for 9x9 sudoku puzzle
 void SudokuGrid::print() {
@@ -145,7 +154,7 @@ int main (int argc, char * const argv[]) {
 	//example below sets value 5 to the cell with coordinates (0,0)
 	//this requires the initialized default for SudokuGrid puzzle to be all zeroes at every location
 	//puzzle.writeCellValue(0,0,5);
-	puzzle.writeCellValue(0,0,0);
+	/*puzzle.writeCellValue(0,0,0);
 	puzzle.writeCellValue(1,0,0);
 	puzzle.writeCellValue(2,0,3);
 	puzzle.writeCellValue(3,0,0);
@@ -226,7 +235,7 @@ int main (int argc, char * const argv[]) {
 	puzzle.writeCellValue(6,8,3);
 	puzzle.writeCellValue(7,8,0);
 	puzzle.writeCellValue(8,8,0);
-	puzzle.writeCellValue(0,0,0);
+	puzzle.writeCellValue(0,0,0);*/
 
     int grid[9][9] = {{3, 0, 6, 5, 0, 8, 4, 0, 0},
         {5, 2, 0, 0, 0, 0, 0, 0, 0},
@@ -240,7 +249,7 @@ int main (int argc, char * const argv[]) {
     
     int attempts;
     
-    //puzzle.readArray(&puzzle, grid); read from the grid above, or any other grid we define
+    puzzle.readArray(grid); //read from the grid above, or any other grid we define
 	//print grid, if empty the cells are filled with '.'
 	puzzle.print();
 
