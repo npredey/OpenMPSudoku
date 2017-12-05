@@ -134,13 +134,6 @@ bool bruteForceSolve(SudokuGrid* grid, int &numAttempts)
 int main (int argc, char * const argv[]) {
 	SudokuGrid puzzle;
 
-	int arraysize = 80;
-    char myArray[arraysize];
-	char current_char;
-	int num_characters = 0;
-	int i = 0;
-	int value;
-
 	//myfile.open("data/cleanedUpFiles/xab");
 	//char ch;
 	//fstream fin("data/cleanedUpFiles/xaa", fstream::in);
