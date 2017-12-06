@@ -175,14 +175,14 @@ int main (int argc, char * const argv[]) {
     puzzle.readStringToBoard(example);
     puzzle.print();
     //TODO time this. getting a linker error when importing the header. should talk to Dr. Stone about this
-    //myTimer_t t0 = getTimeStamp();
+    myTimer_t t0 = getTimeStamp();
     if (bruteForceSolve(&puzzle, attempts)) {
         cout << "Solution exists ";
     } else {
         cout << "Solution does not exist ";
     }
-    //myTimer_t t1 = getTimeStamp();
-    cout << "after " << attempts << " attempts and " << /*getElapsedTime(t0,t1)*1000 << " seconds." <<*/ endl;
+    myTimer_t t1 = getTimeStamp();
+    cout << "after " << attempts << " attempts and " << getElapsedTime(t0,t1) << " seconds." << endl;
     puzzle.print();
     return 0;
 }
