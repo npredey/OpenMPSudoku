@@ -1,4 +1,4 @@
 #!/bin/sh
 
-g++ -Wall openMPSudoku.cpp -o testRunPrint
+g++ -Wall -I. openMPSudoku.cpp my_timer.cpp -o testRunPrint
 
