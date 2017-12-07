@@ -125,6 +125,49 @@ bool isValidMove(SudokuGrid* grid, int row, int col, int num)
     !checkBox(grid, row - row%3 , col - col%3, num);
 }
 
+
+//Elimination Attempt
+//If cell can only have a single number, then the cell is assigned that number
+//bool elimination(SudokuGrid* grid)
+
+// Lone Ranger Attempt
+bool lonerangerBoxCheck(SudokuGrid* grid, int boxStartRow, int boxStartCol, int num)
+{
+    int num_found, row_found, col_found, returnValue;
+        //want this to be 1 at the end of this function for it to be a lone ranger
+    num_found =0;
+    returnValue = 0;
+    for (int row = 0; row < 3; row++) {
+        for (int col = 0; col < 3; col++) {
+            if (grid->readCellValue(row+boxStartRow,col+boxStartCol) == 0) {
+                for (int num=0; num<9; num++) {
+                    if (isValidMove(grid,row+boxStartRow,col+boxStartCol,num)) {
+                        num_found++;
+                        if(num_found >1) break;
+                        row_found = row+boxStartRow;
+                        col_found = col+boxStartCol;
+                    }
+                }
+                if(num_found == 1) {
+                    returnValue = 1;
+                    //TODO num or num+1
+                    grid->writeCellValue(row_found, col_found, num+1);
+                }
+            }
+        }
+    }
+
+    //return false if no changes
+    return returnValue;
+}
+
+bool twins(int i)
+{
+
+
+}
+
+
 bool bruteForceSolve(SudokuGrid* grid, int &numAttempts)
 {
     int row, col;
