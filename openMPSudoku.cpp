@@ -212,7 +212,6 @@ int main (int argc, char * const argv[]) {
     std::string example = "85...24..72......9..4....00...1.7..23.5...9...4...........8..7..17..........36.4.";
     puzzle.readStringToBoard(example);
     puzzle.print();
-    //TODO time this. getting a linker error when importing the header. should talk to Dr. Stone about this
     myTimer_t t0 = getTimeStamp();
     if (bruteForceSolve(&puzzle, attempts)) {
         cout << "Solution exists ";
