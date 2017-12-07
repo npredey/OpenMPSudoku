@@ -161,11 +161,6 @@ bool lonerangerBoxCheck(SudokuGrid* grid, int boxStartRow, int boxStartCol, int 
     return returnValue;
 }
 
-bool twins(int i)
-{
-
-
-}
 
 
 bool bruteForceSolve(SudokuGrid* grid, int &numAttempts)
