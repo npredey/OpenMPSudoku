@@ -30,7 +30,7 @@ SUDOKUGRID solution;
 list *head;
 list *tail;
 
-SUDOKUGRID readStringTo3Board(char *filename) {
+SUDOKUGRID readStringToBoard(char *filename) {
   int i,j;  
   SUDOKUGRID grid;  
   int element_int;
@@ -86,7 +86,7 @@ short checkAll(SUDOKUGRID grid, short x_line, short x_col) {
   short line, column;
   short value = grid.guesses[x_line][x_col];
 
-  // Previously checkColumn TODO
+  // Previously checkColumn 
   for (line = 0; line < SIZE; line++) {
     if (grid.guesses[line][x_col] == 0)
       continue;
@@ -96,7 +96,7 @@ short checkAll(SUDOKUGRID grid, short x_line, short x_col) {
       return 0;
   }
 
-  // previously checkRow TODO
+  // previously checkRow
   for (column = 0; column < SIZE; column++) {
     if (grid.guesses[x_line][column] == 0)
       continue;
@@ -304,7 +304,6 @@ short bruteForceParallel(SUDOKUGRID grid) {
 int main(int argc, char* argv[]) {
 	//parallel testpuzzle.txt threadNumber
     
-    //TODO START TIMER HERE
   int thread_count = atoi(argv[2]);
   int max_threads = omp_get_max_threads();
 
