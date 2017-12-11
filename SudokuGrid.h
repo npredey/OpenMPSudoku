@@ -12,6 +12,10 @@ class SudokuGrid {
     // Constructor
 	SudokuGrid();
 
+	//TEMP TODO
+	short **data;
+	short **fixed;
+
 		// TODO
 	// tests validity of cell value
     //returns true if rules are followed, false if any are broken

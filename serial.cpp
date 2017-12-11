@@ -177,7 +177,7 @@ int main (int argc, char * const argv[]) {
 	//print grid, if empty the cells are filled with '.'
 	//puzzle.print();*/
     int attempts;
-    std::string example = "85...24..72......9..4....00...1.7..23.5...9...4...........8..7..17..........36.4.";
+    std::string example = "..............3.85..1.2.......5.7.....4...1...9.......5......73..2.1........4...9";
     puzzle.readStringToBoard(example);
     puzzle.print();
     myTimer_t t0 = getTimeStamp();
