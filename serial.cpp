@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <stdlib.h>
+#include <sstream>
 #include "SudokuGrid.h"
 #include "my_timer.h"
 
@@ -48,6 +49,18 @@ void SudokuGrid::readStringToBoard(std::string boardLine) {
             }
         }
         boardRowNumber++;
+    }
+}
+
+void SudokuGrid::readFromFileToBoard(std::string filename) {
+    std::ifstream infile(filename);
+    std::string fileLine;
+    while (std::getline(infile, fileLine))
+    {
+        std::istringstream in(fileLine);
+        std::string boardLine;
+        if (!(in >> boardLine)) { break; } // error
+        readStringToBoard(boardLine);
     }
 }
 
@@ -178,7 +191,9 @@ int main (int argc, char * const argv[]) {
 	//puzzle.print();*/
     int attempts;
     std::string example = "..............3.85..1.2.......5.7.....4...1...9.......5......73..2.1........4...9";
-    puzzle.readStringToBoard(example);
+    //puzzle.readStringToBoard(example);
+    puzzle.print();
+    puzzle.readFromFileToBoard(argv[1]);
     puzzle.print();
     myTimer_t t0 = getTimeStamp();
     if (bruteForceSolve(&puzzle, attempts)) {

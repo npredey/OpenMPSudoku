@@ -45,6 +45,8 @@ class SudokuGrid {
     void readArray(int[][9]);
     
     void readStringToBoard(std::string board);
+    
+    void readFromFileToBoard(std::string filename);
 	
 };
 
