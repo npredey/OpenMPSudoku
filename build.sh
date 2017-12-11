@@ -1,2 +1,2 @@
 #!/bin/sh
-g++ -Wall -I. openMPSudoku.cpp my_timer.cpp -o testRunPrint
+g++ -Wall -I. serial.cpp my_timer.cpp -o serial
