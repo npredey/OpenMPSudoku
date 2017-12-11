@@ -322,7 +322,7 @@ int main(int argc, char* argv[]) {
             print(&m);
             
             //TODO START TIMER
-
+            myTimer_t t0 = getTimeStamp();
 
             //sending the input grid to the bruteForceParallel method which would return 1 if a solution is found
             short hasSolution = bruteForceParallel(m);
@@ -339,9 +339,9 @@ int main(int argc, char* argv[]) {
         printf("SERIAL WE DO NOT WANT TO BE HERE");
 }
   //TODO END TIMER
-
+  myTimer_t t1 = getTimeStamp();
   printf("Solved:");
-  //std::cout << getElapsedTime(t0,t1) << std::endl;
+  std::cout << getElapsedTime(t0,t1) << std::endl;
   print(&solution);
 
 
