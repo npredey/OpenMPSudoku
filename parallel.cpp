@@ -303,7 +303,7 @@ short bruteForceParallel(SUDOKUGRID grid) {
 
 int main(int argc, char* argv[]) {
 	//parallel testpuzzle.txt threadNumber
-    
+  myTimer_t t0;  
   int thread_count = atoi(argv[2]);
   int max_threads = omp_get_max_threads();
 
@@ -322,7 +322,7 @@ int main(int argc, char* argv[]) {
             print(&m);
             
             //TODO START TIMER
-            myTimer_t t0 = getTimeStamp();
+            t0 = getTimeStamp();
 
             //sending the input grid to the bruteForceParallel method which would return 1 if a solution is found
             short hasSolution = bruteForceParallel(m);
