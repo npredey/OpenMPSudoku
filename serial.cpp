@@ -53,7 +53,7 @@ void SudokuGrid::readStringToBoard(std::string boardLine) {
 }
 
 void SudokuGrid::readFromFileToBoard(std::string filename) {
-    std::ifstream infile(filename);
+    std::ifstream infile(filename.c_str());
     std::string fileLine;
     while (std::getline(infile, fileLine))
     {
@@ -193,7 +193,8 @@ int main (int argc, char * const argv[]) {
     std::string example = "..............3.85..1.2.......5.7.....4...1...9.......5......73..2.1........4...9";
     //puzzle.readStringToBoard(example);
     puzzle.print();
-    puzzle.readFromFileToBoard(argv[1]);
+    std::string filename(argv[1]);
+    puzzle.readFromFileToBoard(filename);
     puzzle.print();
     myTimer_t t0 = getTimeStamp();
     if (bruteForceSolve(&puzzle, attempts)) {
