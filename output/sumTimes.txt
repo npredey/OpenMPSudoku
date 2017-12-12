@@ -1,3 +1,5 @@
+Serial
+1378.15
 2 Threads
 595.468
 4 Threads
