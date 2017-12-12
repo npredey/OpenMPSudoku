@@ -1,0 +1,12 @@
+2 Threads
+595.468
+4 Threads
+363.981
+8 threads
+330.55
+16 Threads
+327.163
+32 Threads
+327.866
+64 Threads
+333.97
